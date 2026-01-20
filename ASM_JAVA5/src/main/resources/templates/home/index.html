@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2200d",
+                        "background-light": "#fafaf9",
+                        "background-dark": "#1a1a1a",
+                        "accent-yellow": "#f2d824",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        .soft-shadow {
+            box-shadow: 0 10px 30px -10px rgba(242, 32, 13, 0.12);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(242, 32, 13, 0.2);
+            transition: all 0.3s ease;
+        }
+        .text-shadow-sm {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .slides-container::-webkit-scrollbar {
+            display: none;
+        }
+        .slides-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+
+    <main class="flex-1 max-w-[1200px] mx-auto w-full px-4 lg:px-10 py-8">
+        <section class="mb-12 relative">
+            <div class="slides-container flex overflow-x-auto snap-x snap-mandatory scroll-smooth rounded-3xl">
+                <div class="min-w-full snap-start relative overflow-hidden bg-primary p-8 lg:p-16 flex flex-col lg:flex-row items-center gap-12 min-h-[500px]">
+                    <div class="absolute top-0 right-0 w-1/2 h-full bg-white/5 skew-x-12 transform translate-x-24"></div>
+                    <div class="flex-1 text-white z-10 text-center lg:text-left">
+                        <span class="inline-block px-4 py-1.5 bg-accent-yellow text-[#1c0e0d] font-bold rounded-full text-xs uppercase tracking-widest mb-6">Mới &amp; Nóng Hổi</span>
+                        <h1 class="text-4xl md:text-6xl font-black leading-[1.1] mb-6">Giòn Tan Từng Miếng <br/> Đặt Hàng Ngay!</h1>
+                        <p class="text-lg opacity-90 mb-8 max-w-lg leading-relaxed">Trải nghiệm hương vị gà rán chuẩn vị với lớp vỏ vàng ươm và thịt mềm ngọt mọng nước. Ưu đãi cực khủng mỗi ngày!</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button class="px-8 h-14 bg-white text-primary font-bold rounded-xl text-lg hover:bg-accent-yellow hover:text-black transition-all flex items-center justify-center gap-2">
+                                <span>Đặt hàng ngay</span>
+                                <span class="material-symbols-outlined">arrow_forward</span>
+                            </button>
+                            <button class="px-8 h-14 bg-black/20 text-white font-bold rounded-xl text-lg hover:bg-black/30 transition-all backdrop-blur-sm">Xem thực đơn</button>
+                        </div>
+                    </div>
+                    <div class="flex-1 z-10 w-full max-w-md lg:max-w-none">
+                        <div class="aspect-square bg-contain bg-center bg-no-repeat drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDnb5Qeb6U2ZSM3xONSHF6albxY8jY-exRhRYLClbKWELtfvf40YG3s3RCU8RS1EAbHZi4AwD-OXkg1BUJ3SD_AXKBnwVDuEy0C0oLn7aDIni7ZxE2kCxQT28ikCGde_5ytJQekXbLMOGZravlx83ACnfLDaN2FNlDL0DxQu1FyqmUBCEpn3St1bTfEildbXVA5Eq-oFFJXqhHn2sbN52uHu_Gddv4jBkCLASaFgwVq4v-rSOdi2_SzoqB-yRM5EqjwW0Z-u_6AaYTM');"></div>
+                    </div>
+                </div>
+                <div class="min-w-full snap-start relative overflow-hidden bg-[#1c0e0d] p-8 lg:p-16 flex flex-col lg:flex-row items-center gap-12 min-h-[500px]">
+                    <div class="absolute top-0 right-0 w-1/2 h-full bg-primary/10 skew-x-12 transform translate-x-24"></div>
+                    <div class="flex-1 text-white z-10 text-center lg:text-left">
+                        <span class="inline-block px-4 py-1.5 bg-primary text-white font-bold rounded-full text-xs uppercase tracking-widest mb-6">Tiệc Đỉnh Cao</span>
+                        <h2 class="text-4xl md:text-6xl font-black leading-[1.1] mb-6">Đại Tiệc Pizza <br/> Mua 1 Tặng 1</h2>
+                        <p class="text-lg opacity-90 mb-8 max-w-lg leading-relaxed">Thứ 3 và Thứ 5 hàng tuần, tận hưởng niềm vui nhân đôi với tất cả các loại Pizza cỡ lớn. Phục vụ tận nơi chỉ trong 30 phút!</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button class="px-8 h-14 bg-primary text-white font-bold rounded-xl text-lg hover:bg-white hover:text-primary transition-all flex items-center justify-center gap-2">
+                                <span>Lấy mã ngay</span>
+                                <span class="material-symbols-outlined">local_offer</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1 z-10 w-full max-w-md lg:max-w-none">
+                        <div class="aspect-square bg-contain bg-center bg-no-repeat drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBb3ds94bwmJUPNqCloZ8ixFNqG1hcR3TCvNlBUGd89F-BNN8XSvn9vuhwUWdQSvY9GU0ejMb6SV5Uto5oClabO6eH6-5tx7eCv6vYPaULq1nxhaFnetdFQ-C0HY-c4FbeCBfi9mH83Xlper6tUdR_ePfVJwjQYRrk_nZjXRVsTe8DxxJyCMZES4m9YP_8y-I6RKh5fZuO1d27myy5XhPib4FY2W2ogIVbATEB6YnxkEAmU1LcrZul9dWOXcXfHnequN29tUVLouZOn');"></div>
+                    </div>
+                </div>
+                <div class="min-w-full snap-start relative overflow-hidden bg-accent-yellow p-8 lg:p-16 flex flex-col lg:flex-row items-center gap-12 min-h-[500px]">
+                    <div class="absolute top-0 right-0 w-1/2 h-full bg-black/5 skew-x-12 transform translate-x-24"></div>
+                    <div class="flex-1 text-[#1c0e0d] z-10 text-center lg:text-left">
+                        <span class="inline-block px-4 py-1.5 bg-black text-white font-bold rounded-full text-xs uppercase tracking-widest mb-6">Siêu Rẻ Mỗi Ngày</span>
+                        <h2 class="text-4xl md:text-6xl font-black leading-[1.1] mb-6">Burger Bò Mỹ <br/> Chỉ Từ 45.000đ</h2>
+                        <p class="text-lg opacity-80 mb-8 max-w-lg leading-relaxed font-medium">Bánh burger kẹp thịt bò Mỹ nướng lửa hồng, phô mai Cheddar và sốt đặc biệt. Ngon khó cưỡng, giá cực yêu!</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button class="px-8 h-14 bg-black text-white font-bold rounded-xl text-lg hover:bg-primary transition-all flex items-center justify-center gap-2">
+                                <span>Thử ngay</span>
+                                <span class="material-symbols-outlined">lunch_dining</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1 z-10 w-full max-w-md lg:max-w-none">
+                        <div class="aspect-square bg-contain bg-center bg-no-repeat drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXOje9dAY3x0kLs0Pfk3sR4S661JDBml5wRWF1caSyTnV0SxYiapY8S2iNFNkuDS8wJNcn7ax0TKLOmVb1_Ksk-YRN5ULRrySkmzodE_CDbE-M08w3gcY2-WCbLPawTkQ-BmM3zkJue_kjUit1eqZ_R3XAyvDzriSloI5aO-CY25S_xSvWtnzeHOD4SI09pY7W77xoLQA63TKeyiOKGXij9Fe4yAqpmxPH766AChzNKhPe0TU8gMtXPkx_9HowLjs8d-YlmGo09Av3');"></div>
+                    </div>
+                </div>
+                <div class="min-w-full snap-start relative overflow-hidden bg-[#f4e8e7] dark:bg-[#2a2a2a] p-8 lg:p-16 flex flex-col lg:flex-row items-center gap-12 min-h-[500px]">
+                    <div class="absolute top-0 right-0 w-1/2 h-full bg-primary/5 skew-x-12 transform translate-x-24"></div>
+                    <div class="flex-1 text-[#1c0e0d] dark:text-white z-10 text-center lg:text-left">
+                        <span class="inline-block px-4 py-1.5 bg-primary text-white font-bold rounded-full text-xs uppercase tracking-widest mb-6">Tiết Kiệm Nhóm</span>
+                        <h2 class="text-4xl md:text-6xl font-black leading-[1.1] mb-6">Combo Gia Đình <br/> Ưu Đãi 20%</h2>
+                        <p class="text-lg opacity-70 mb-8 max-w-lg leading-relaxed">Set ăn thịnh soạn cho cả nhà cùng thưởng thức. Miễn phí vận chuyển cho tất cả đơn hàng Combo từ 200k.</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button class="px-8 h-14 bg-primary text-white font-bold rounded-xl text-lg hover:bg-black transition-all flex items-center justify-center gap-2">
+                                <span>Khám phá ngay</span>
+                                <span class="material-symbols-outlined">groups</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1 z-10 w-full max-w-md lg:max-w-none">
+                        <div class="aspect-square bg-contain bg-center bg-no-repeat drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVVrIePe7HaSvjhW-Qv2Lb5Xs329EXSspcitu1vGF9W_4tyEr6l1dikfFhwiC0Xu44Ahka6I55BUzkuaLzXH7OlrgHygZKUOzYbh0bKfI7dH_FixsUByaT541wII-nQ74NFmJgP6V-XB931bduQ-F3liKmGiGBQbpd4naGYGg7GOCsWYfItiSvp-x0dd4_ayW7smF-GGj3yKi0Rohgl_6iFq-Jil3KIjTISJF_nQZzxC86VLP7itSVKpHlHcE6g4oNdgjAVMlXn4vd');"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="absolute left-4 top-1/2 -translate-y-1/2 size-16 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-2xl flex items-center justify-center text-white transition-all z-20 shadow-lg border border-white/20">
+                <span class="material-symbols-outlined text-4xl font-bold">chevron_left</span>
+            </button>
+            <button class="absolute right-4 top-1/2 -translate-y-1/2 size-16 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-2xl flex items-center justify-center text-white transition-all z-20 shadow-lg border border-white/20">
+                <span class="material-symbols-outlined text-4xl font-bold">chevron_right</span>
+            </button>
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 z-20">
+                <div class="h-3 w-8 rounded-full bg-white shadow-lg"></div>
+                <div class="size-3 rounded-full bg-white/40 hover:bg-white/60 cursor-pointer transition-all border border-white/20"></div>
+                <div class="size-3 rounded-full bg-white/40 hover:bg-white/60 cursor-pointer transition-all border border-white/20"></div>
+                <div class="size-3 rounded-full bg-white/40 hover:bg-white/60 cursor-pointer transition-all border border-white/20"></div>
+            </div>
+        </section>
+        <section class="mb-16">
+            <div class="flex items-center justify-between mb-8 px-2">
+                <h2 class="text-3xl font-extrabold tracking-tight">Bán Chạy Nhất</h2>
+                <a class="text-primary font-bold flex items-center gap-1 hover:underline" href="#">
+                    Xem tất cả
+                    <span class="material-symbols-outlined text-lg">chevron_right</span>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
+                        <div class="absolute top-2 right-2 bg-accent-yellow text-[#1c0e0d] text-[10px] font-black px-2 py-1 rounded-lg uppercase">HOT</div>
+                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1kI_UKSmL4klHqxELKWEx6JLG66yBryTlbCerrN2aW3F3JG1WsGleVRLBXr7endziK695ZSU7axyYrY3dnYHdGAoQwTKCWvf2jiCrySr-2wixWKq6P2QInOr3kHeZrZjFsHYb0a3ThPda-BOHaMK_RvbBQ1LMwpuCFhR_04dmaJO-_rqKhjtDiIRA0DGX4sVUp3OgI_pJZp_wTGJmQCowYCu5K0L05ZzxS8NedNOH2gvD9kEGq5xJAo7_rVBjnkWysipZSz79wlhM');"></div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Combo Gà Giòn Cay A</h3>
+                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">2 miếng gà rán, 1 khoai tây chiên size M, 1 Pepsi mát lạnh.</p>
+                    <div class="mt-auto flex items-center justify-between">
+                        <span class="text-xl font-black text-primary">129.000đ</span>
+                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
+                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXOje9dAY3x0kLs0Pfk3sR4S661JDBml5wRWF1caSyTnV0SxYiapY8S2iNFNkuDS8wJNcn7ax0TKLOmVb1_Ksk-YRN5ULRrySkmzodE_CDbE-M08w3gcY2-WCbLPawTkQ-BmM3zkJue_kjUit1eqZ_R3XAyvDzriSloI5aO-CY25S_xSvWtnzeHOD4SI09pY7W77xoLQA63TKeyiOKGXij9Fe4yAqpmxPH766AChzNKhPe0TU8gMtXPkx_9HowLjs8d-YlmGo09Av3');"></div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Burger Bò Phô Mai</h3>
+                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Bò nướng lửa hồng, phô mai Cheddar tan chảy và rau tươi.</p>
+                    <div class="mt-auto flex items-center justify-between">
+                        <span class="text-xl font-black text-primary">89.000đ</span>
+                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
+                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBb3ds94bwmJUPNqCloZ8ixFNqG1hcR3TCvNlBUGd89F-BNN8XSvn9vuhwUWdQSvY9GU0ejMb6SV5Uto5oClabO6eH6-5tx7eCv6vYPaULq1nxhaFnetdFQ-C0HY-c4FbeCBfi9mH83Xlper6tUdR_ePfVJwjQYRrk_nZjXRVsTe8DxxJyCMZES4m9YP_8y-I6RKh5fZuO1d27myy5XhPib4FY2W2ogIVbATEB6YnxkEAmU1LcrZul9dWOXcXfHnequN29tUVLouZOn');"></div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Pizza Hải Sản Sốt Pesto</h3>
+                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Tôm bóc vỏ, mực, thanh cua cùng sốt Pesto đặc biệt.</p>
+                    <div class="mt-auto flex items-center justify-between">
+                        <span class="text-xl font-black text-primary">245.000đ</span>
+                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
+                        <div class="absolute top-2 right-2 bg-primary text-white text-[10px] font-black px-2 py-1 rounded-lg uppercase">-15%</div>
+                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByRCmchit19dZS48tQJfdeMZ_It_eWp68cQSTG2J7ej5ubuKaQ4-k7ysCaxemGjsyBDGCV9Nc4ssP72ainZ_PxabsT_MLgaT040VIthD7Nz9JMBoJpZ2xGwW3lTNBDwCk1MBq14a2svYH0rMwyy5hLOsTOdIikDUptyee-uRI3ZyZFm2K2wn1ZRV2M_vq3z3RzbHg2TlPzOh48Lq-LbR-Jj_NVdgyA_IceTIpniznz7xmrknLK9yOFMEHfPJ8bUXkkiRRyu8zPQaxj');"></div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Gà Nuggets (9 miếng)</h3>
+                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Gà viên giòn rụm đi kèm sốt mù tạt mật ong hấp dẫn.</p>
+                    <div class="mt-auto flex items-center justify-between">
+                        <span class="text-xl font-black text-primary">65.000đ</span>
+                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mb-16">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 px-2 gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold tracking-tight">Combo Ưu Đãi</h2>
+                    <p class="text-sm text-[#9c5049] dark:text-[#a0a0a0] font-medium">Lựa chọn hoàn hảo cho mọi dịp</p>
+                </div>
+                <div class="flex items-center gap-4 bg-primary/10 border border-primary/20 px-6 py-3 rounded-2xl w-fit">
+                    <div class="size-10 bg-primary rounded-full flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined text-2xl">local_shipping</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-primary uppercase leading-tight">Free Delivery</p>
+                        <p class="text-[10px] font-medium text-[#1c0e0d] dark:text-white leading-tight">Đơn hàng từ 200k</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 relative rounded-3xl overflow-hidden group soft-shadow h-[500px] lg:h-[600px]">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVVrIePe7HaSvjhW-Qv2Lb5Xs329EXSspcitu1vGF9W_4tyEr6l1dikfFhwiC0Xu44Ahka6I55BUzkuaLzXH7OlrgHygZKUOzYbh0bKfI7dH_FixsUByaT541wII-nQ74NFmJgP6V-XB931bduQ-F3liKmGiGBQbpd4naGYGg7GOCsWYfItiSvp-x0dd4_ayW7smF-GGj3yKi0Rohgl_6iFq-Jil3KIjTISJF_nQZzxC86VLP7itSVKpHlHcE6g4oNdgjAVMlXn4vd');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    <div class="absolute top-8 left-8 flex flex-wrap gap-3">
+                        <span class="px-4 py-1.5 bg-primary text-white rounded-full text-xs font-black uppercase tracking-widest shadow-lg">Bestseller</span>
+                        <span class="px-4 py-1.5 bg-accent-yellow text-black rounded-full text-xs font-black uppercase tracking-widest shadow-lg">Tiết kiệm 20%</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 lg:p-12 text-white w-full lg:max-w-2xl">
+                        <h3 class="text-4xl lg:text-5xl font-black mb-4 leading-tight text-shadow-sm">Combo Gia Đình <br/> Đại Tiệc</h3>
+                        <p class="opacity-90 text-sm lg:text-base mb-8 leading-relaxed font-medium">
+                            Set ăn thịnh soạn gồm 9 miếng gà rán truyền thống, 2 burger bò phô mai, 2 khoai tây chiên cỡ lớn và 1 bình Pepsi 1.5L. Phù hợp cho bữa tiệc gia đình 4-6 người.
+                        </p>
+                        <div class="flex items-center gap-6">
+                            <div>
+                                <p class="text-xs uppercase font-bold opacity-70 mb-1">Chỉ với</p>
+                                <span class="text-3xl lg:text-4xl font-black text-accent-yellow">499.000đ</span>
+                            </div>
+                            <button class="flex-1 lg:flex-none px-10 h-14 bg-primary text-white font-bold rounded-xl hover:bg-white hover:text-primary transition-all flex items-center justify-center gap-2 text-lg shadow-xl shadow-primary/20">
+                                <span>Đặt ngay</span>
+                                <span class="material-symbols-outlined">shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <div class="flex-1 relative rounded-3xl overflow-hidden group soft-shadow min-h-[285px]">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA50wzkXAzhRMGpjD_wgrlBP85pWz2iRm4v237_wbCgGfOm6E3S_qWoafK4wMvDL6Sm9wjDjL_x5KbBOZyi1eMAR9fd5Ux1zrVl07FTrY1W0G2pNmGPcJvvOeZoKDUEiV7hCaHw0tMsaBkNJXPEiB6cTWS4r1EygHGYvm-lUazJvYTBSkBn7oCJbSnsos84i2ai9Vk8BuCWe8NGL5Wkoj27pKchz6uMSYMWspqMwESnvu5ltTf4Ai5bymqHvuTbgh3AIjij_YkaAWoj');"></div>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary/90 to-transparent opacity-80"></div>
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                            <div class="mb-auto flex justify-end">
+                                <div class="size-20 bg-accent-yellow text-black rounded-full flex flex-col items-center justify-center text-center p-2 rotate-12 shadow-xl border-4 border-white/20">
+                                    <span class="text-[10px] font-black leading-none uppercase">Đồng giá</span>
+                                    <span class="text-2xl font-black leading-none">45k</span>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-black mb-2 text-shadow-sm">Combo Sinh Viên</h3>
+                            <p class="text-sm font-bold opacity-90 mb-6">Nạp năng lượng, bùng nổ đam mê!</p>
+                            <button class="w-full h-12 bg-white text-primary font-bold rounded-xl hover:bg-black hover:text-white transition-all text-sm flex items-center justify-center gap-2">
+                                <span>Đặt ngay</span>
+                                <span class="material-symbols-outlined text-lg">bolt</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1 relative rounded-3xl overflow-hidden group soft-shadow min-h-[285px]">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1kI_UKSmL4klHqxELKWEx6JLG66yBryTlbCerrN2aW3F3JG1WsGleVRLBXr7endziK695ZSU7axyYrY3dnYHdGAoQwTKCWvf2jiCrySr-2wixWKq6P2QInOr3kHeZrZjFsHYb0a3ThPda-BOHaMK_RvbBQ1LMwpuCFhR_04dmaJO-_rqKhjtDiIRA0DGX4sVUp3OgI_pJZp_wTGJmQCowYCu5K0L05ZzxS8NedNOH2gvD9kEGq5xJAo7_rVBjnkWysipZSz79wlhM');"></div>
+                        <div class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all"></div>
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end text-white text-center">
+                            <span class="text-primary bg-white px-4 py-1.5 rounded-full text-[11px] font-black uppercase w-fit mx-auto mb-3 shadow-lg">Hẹn hò lý tưởng</span>
+                            <h3 class="text-2xl font-black mb-2">Combo Cặp Đôi</h3>
+                            <p class="text-sm font-bold opacity-80 mb-6">Nhân đôi niềm vui - Chỉ 189k</p>
+                            <button class="w-full h-12 bg-primary text-white font-bold rounded-xl hover:bg-white hover:text-primary transition-all text-sm shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                                <span>Đặt cho 2 người</span>
+                                <span class="material-symbols-outlined text-lg">favorite</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
