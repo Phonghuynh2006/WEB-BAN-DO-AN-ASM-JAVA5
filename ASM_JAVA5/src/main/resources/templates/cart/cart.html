@@ -176,10 +176,15 @@
                 </div>
               </div>
             </div>
-            <button class="w-full bg-primary text-white py-4 rounded-xl font-black text-lg shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all flex items-center justify-center gap-3">
-              THANH TOÁN
-              <span class="material-symbols-outlined">arrow_forward</span>
-            </button>
+<!--            <button class="w-full bg-primary text-white py-4 rounded-xl font-black text-lg shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all flex items-center justify-center gap-3">-->
+<!--              THANH TOÁN-->
+<!--              <span class="material-symbols-outlined">arrow_forward</span>-->
+<!--            </button>-->
+            <a th:href="@{/checkout/checkout}"
+               class="w-full bg-primary text-white py-4 rounded-xl font-black text-lg shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all flex items-center justify-center gap-3">
+              THANH TOÁN<span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+
             <!-- Promo Code Input -->
             <div class="mt-8">
               <label class="block text-xs font-bold text-[#9c5049] dark:text-white/60 uppercase tracking-widest mb-2">Mã giảm giá</label>
