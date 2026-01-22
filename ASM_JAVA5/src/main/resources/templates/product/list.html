@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 
+
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -43,7 +44,13 @@
         gap: 1.5rem;
     }
 </style>
+
+
+
 <body>
+
+<!-- ✅ GỌI HEADER -->
+<div th:replace="layout/header :: header"></div>
 
 <main class="max-w-[1280px] mx-auto flex flex-col md:flex-row gap-8 px-6 py-8">
     <aside class="w-full md:w-64 flex-shrink-0">
@@ -233,6 +240,7 @@
         <span class="text-[10px] font-medium">Cá nhân</span>
     </button>
 </div>
-
+<!-- ✅ GỌI footer -->
+<div th:replace="layout/footer :: footer"></div>
 </body>
 </html>

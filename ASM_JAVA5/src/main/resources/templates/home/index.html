@@ -250,10 +250,10 @@
     </style>
 </head>
 <body>
-<!-- ✅ GỌI HEADER -->
-<div th:replace="layout/header :: header"></div>
-<div class="container">
 
+<div class="container">
+    <!-- ✅ GỌI HEADER -->
+    <div th:replace="layout/header :: header"></div>
     <!-- Hero Carousel -->
     <div class="carousel">
         <div class="slides" id="slides">
@@ -288,32 +288,65 @@
         <button onclick="nextSlide()" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); width:4rem; height:4rem; background:rgba(255,255,255,0.3); border:none; border-radius:1rem; color:white; font-size:2rem; cursor:pointer;">→</button>
     </div>
 
-    <!-- Bán chạy nhất -->
+<!--    &lt;!&ndash; Bán chạy nhất &ndash;&gt;-->
+<!--    <section style="margin-bottom:4rem;">-->
+<!--        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">-->
+<!--            <h2 style="font-size:1.875rem; font-weight:800;">Bán Chạy Nhất</h2>-->
+<!--            <a href="#" style="color:var(&#45;&#45;primary); font-weight:bold; text-decoration:none; display:flex; align-items:center; gap:0.25rem;">Xem tất cả <span>→</span></a>-->
+<!--        </div>-->
+<!--        <div class="products-grid">-->
+<!--            &lt;!&ndash; 4 card sản phẩm - copy mẫu dưới đây &ndash;&gt;-->
+<!--            <div class="card">-->
+<!--                <div class="card-img" style="background-image:url('https://lh3.googleusercontent.com/...'); position:relative;">-->
+<!--                    <span class="badge" style="position:absolute; top:0.5rem; right:0.5rem; background:var(&#45;&#45;accent-yellow); color:#1c0e0d;">HOT</span>-->
+<!--                </div>-->
+<!--                <div style="padding:1rem;">-->
+<!--                    <h3 style="font-weight:bold; margin-bottom:0.25rem;">Combo Gà Giòn Cay A</h3>-->
+<!--                    <p style="font-size:0.75rem; color:var(&#45;&#45;text-muted); margin-bottom:1rem;">2 miếng gà rán, 1 khoai tây chiên size M, 1 Pepsi mát lạnh.</p>-->
+<!--                    <div style="display:flex; justify-content:space-between; align-items:center;">-->
+<!--                        <span style="font-size:1.5rem; font-weight:900; color:var(&#45;&#45;primary);">129.000đ</span>-->
+<!--                        <button class="btn btn-primary" style="width:2.5rem; height:2.5rem; border-radius:0.75rem; font-size:1.25rem;">+</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; Thêm 3 card còn lại tương tự &ndash;&gt;-->
+<!--        </div>-->
+<!--    </section>-->
+
     <section style="margin-bottom:4rem;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
             <h2 style="font-size:1.875rem; font-weight:800;">Bán Chạy Nhất</h2>
             <a href="#" style="color:var(--primary); font-weight:bold; text-decoration:none; display:flex; align-items:center; gap:0.25rem;">Xem tất cả <span>→</span></a>
         </div>
-        <div class="products-grid">
-            <!-- 4 card sản phẩm - copy mẫu dưới đây -->
-            <div class="card">
-                <div class="card-img" style="background-image:url('https://lh3.googleusercontent.com/...'); position:relative;">
-                    <span class="badge" style="position:absolute; top:0.5rem; right:0.5rem; background:var(--accent-yellow); color:#1c0e0d;">HOT</span>
-                </div>
-                <div style="padding:1rem;">
-                    <h3 style="font-weight:bold; margin-bottom:0.25rem;">Combo Gà Giòn Cay A</h3>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;">2 miếng gà rán, 1 khoai tây chiên size M, 1 Pepsi mát lạnh.</p>
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span style="font-size:1.5rem; font-weight:900; color:var(--primary);">129.000đ</span>
-                        <button class="btn btn-primary" style="width:2.5rem; height:2.5rem; border-radius:0.75rem; font-size:1.25rem;">+</button>
-                    </div>
+    <div class="products-grid">
+
+        <div class="card" th:each="item : ${bestSellers}">
+            <div class="card-img"
+                 th:style="'background-image:url(' + ${item.imageUrl} + ')'">
+            <span class="badge"
+                  th:if="${item.size != null}">
+                HOT
+            </span>
+            </div>
+
+            <div style="padding:1rem;">
+                <h3 th:text="${item.name}"></h3>
+
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;"
+                   th:text="${item.description}">
+                </p>
+
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:1.5rem; font-weight:900; color:var(--primary);"
+                      th:text="${#numbers.formatDecimal(item.price,0,'COMMA',0,'POINT')} + 'đ'">
+                </span>
+
+                    <button class="btn btn-primary">+</button>
                 </div>
             </div>
-            <!-- Thêm 3 card còn lại tương tự -->
         </div>
-    </section>
-
-
+    </div>
+</section>
 
     <!-- Combo Ưu đãi -->
     <section style="margin-bottom:4rem;">
@@ -379,11 +412,11 @@
             </div>
         </div>
     </section>
-
+    <!-- ✅ GỌI footer -->
+    <div th:replace="layout/footer :: footer"></div>
 </div>
 
-<!-- ✅ GỌI footer -->
-<div th:replace="layout/footer :: footer"></div>
+
 <script>
     let currentSlide = 0;
     const slides = document.getElementById('slides');

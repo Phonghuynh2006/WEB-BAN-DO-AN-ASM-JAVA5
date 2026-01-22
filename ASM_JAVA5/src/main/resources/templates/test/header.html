@@ -1,5 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
 
-
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2200d",
+                        "background-light": "#fafaf9",
+                        "background-dark": "#1a1a1a",
+                        "accent-yellow": "#f2d824",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .soft-shadow {
+            box-shadow: 0 10px 30px -10px rgba(242, 32, 13, 0.12);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(242, 32, 13, 0.2);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
 <!-- Footer -->
 <footer xmlns:th="http://www.thymeleaf.org" th:fragment="footer" class="bg-white dark:bg-[#111] border-t border-[#f4e8e7] dark:border-[#333] pt-16 pb-8">
     <div class="max-w-[1200px] mx-auto px-4 lg:px-10">
@@ -62,6 +106,7 @@
 <!--                </div>-->
 <!--            </div>-->
         </div>
+
         <div class="border-t border-[#f4e8e7] dark:border-[#333] pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#9c5049] dark:text-[#a0a0a0]">
             <p>© 2024 Fast Food Home Vietnam. All rights reserved.</p>
             <div class="flex items-center gap-6">
@@ -71,3 +116,5 @@
         </div>
     </div>
 </footer>
+</body>
+</html>
