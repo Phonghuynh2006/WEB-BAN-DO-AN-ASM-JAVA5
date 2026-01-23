@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Food Delivery - Giòn Tan Từng Miếng</title>
+    <style>
+        :root {
+            --primary: #f2200d;
+            --accent-yellow: #f2d824;
+            --dark: #1a1a1a;
+            --light: #fafaf9;
+            --text-muted: #9c5049;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--light);
+            color: #1c0e0d;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .container { padding: 0 2.5rem; }
+        }
+
+        /* Carousel */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.6s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            @media (min-width: 1024px) {
+                flex-direction: row;
+                align-items: center;
+                padding: 4rem;
+            }
+        }
+
+        .slide-text { flex: 1; text-align: center; @media (min-width: 1024px) { text-align: left; } }
+        .slide-img { flex: 1; text-align: center; }
+        .slide-img img {
+            max-height: 420px;
+            width: auto;
+            max-width: 100%;
+        }
+
+        .overlay { position: absolute; inset: 0; z-index: 1; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 2rem;
+            height: 3.5rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #d11c0b; }
+        .btn-light { background: white; color: var(--primary); }
+        .btn-light:hover { background: var(--accent-yellow); color: black; }
+
+        .badge {
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .soft-shadow { box-shadow: 0 10px 30px -10px rgba(242,32,13,0.12); }
+
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px -10px rgba(242,32,13,0.12);
+        }
+
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -15px rgba(242,32,13,0.2); }
+
+        .card-img { height: 220px; background-size: cover; background-position: center; }
+
+        .text-shadow-sm { text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+
+        /* Grid sản phẩm */
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            @media (min-width: 640px) { grid-template-columns: 1fr 1fr; }
+            @media (min-width: 1024px) { grid-template-columns: 1fr 1fr 1fr 1fr; }
+        }
+
+        /* Combo section */
+        .combo-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            @media (min-width: 1024px) { grid-template-columns: 2fr 1fr; }
+        }
+
+        .combo-large {
+            height: 500px;
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            @media (min-width: 1024px) { height: 600px; }
+        }
+
+        .bg-cover {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 1s;
+        }
+
+        .combo-large:hover .bg-cover { transform: scale(1.05); }
+
+        .combo-small {
+            min-height: 285px;
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+
+        .combo-small .bg-cover { transition: transform 0.7s; }
+        .combo-small:hover .bg-cover { transform: scale(1.10); }
+    </style>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2200d",
+                        "background-light": "#fafaf9",
+                        "background-dark": "#1a1a1a",
+                        "accent-yellow": "#f2d824",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .soft-shadow {
+            box-shadow: 0 10px 30px -10px rgba(242, 32, 13, 0.12);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(242, 32, 13, 0.2);
+            transition: all 0.3s ease;
+        }
+    </style>
+
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2200d",
+                        "background-light": "#fafaf9",
+                        "background-dark": "#1a1a1a",
+                        "accent-yellow": "#f2d824",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .soft-shadow {
+            box-shadow: 0 10px 30px -10px rgba(242, 32, 13, 0.12);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(242, 32, 13, 0.2);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- ✅ GỌI HEADER -->
+    <div th:replace="layout/header :: header"></div>
+    <!-- Hero Carousel -->
+    <div class="carousel">
+        <div class="slides" id="slides">
+            <!-- Slide 1 -->
+            <div class="slide" style="background: var(--primary);">
+                <div class="overlay" style="background: linear-gradient(to right, rgba(0,0,0,0.1), transparent); transform: skewX(12deg); translateX(6rem);"></div>
+                <div class="slide-content">
+                    <div class="slide-text">
+                        <span class="badge" style="background:var(--accent-yellow); color:#1c0e0d; margin-bottom:1.5rem; display:inline-block;">Mới & Nóng Hổi</span>
+                        <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight:900; line-height:1.1; margin-bottom:1.5rem;">Giòn Tan Từng Miếng<br>Đặt Hàng Ngay!</h1>
+                        <p style="font-size:1.125rem; opacity:0.9; margin-bottom:2rem; max-width:32rem;">Trải nghiệm hương vị gà rán chuẩn vị với lớp vỏ vàng ươm và thịt mềm ngọt mọng nước.</p>
+                        <div style="display:flex; flex-direction:column; gap:1rem; @media (min-width:640px){flex-direction:row;}">
+                            <button class="btn btn-light">Đặt hàng ngay <span>→</span></button>
+                            <button class="btn" style="background:rgba(0,0,0,0.2); color:white;">Xem thực đơn</button>
+                        </div>
+                    </div>
+                    <div class="slide-img">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnb5Qeb6U2ZSM3xONSHF6albxY8jY-exRhRYLClbKWELtfvf40YG3s3RCU8RS1EAbHZi4AwD-OXkg1BUJ3SD_AXKBnwVDuEy0C0oLn7aDIni7ZxE2kCxQT28ikCGde_5ytJQekXbLMOGZravlx83ACnfLDaN2FNlDL0DxQu1FyqmUBCEpn3St1bTfEildbXVA5Eq-oFFJXqhHn2sbN52uHu_Gddv4jBkCLASaFgwVq4v-rSOdi2_SzoqB-yRM5EqjwW0Z-u_6AaYTM" alt="Gà rán">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2, 3, 4 tương tự - bạn copy & thay nội dung/ảnh/màu nền -->
+            <!-- Ví dụ Slide 2 -->
+            <div class="slide" style="background: var(--dark);">
+                <!-- ... tương tự cấu trúc trên, thay nội dung ... -->
+            </div>
+            <!-- Thêm slide còn lại -->
+        </div>
+
+        <button onclick="prevSlide()" style="position:absolute; left:1rem; top:50%; transform:translateY(-50%); width:4rem; height:4rem; background:rgba(255,255,255,0.3); border:none; border-radius:1rem; color:white; font-size:2rem; cursor:pointer;">←</button>
+        <button onclick="nextSlide()" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); width:4rem; height:4rem; background:rgba(255,255,255,0.3); border:none; border-radius:1rem; color:white; font-size:2rem; cursor:pointer;">→</button>
+    </div>
+
+<!--    &lt;!&ndash; Bán chạy nhất &ndash;&gt;-->
+<!--    <section style="margin-bottom:4rem;">-->
+<!--        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">-->
+<!--            <h2 style="font-size:1.875rem; font-weight:800;">Bán Chạy Nhất</h2>-->
+<!--            <a href="#" style="color:var(&#45;&#45;primary); font-weight:bold; text-decoration:none; display:flex; align-items:center; gap:0.25rem;">Xem tất cả <span>→</span></a>-->
+<!--        </div>-->
+<!--        <div class="products-grid">-->
+<!--            &lt;!&ndash; 4 card sản phẩm - copy mẫu dưới đây &ndash;&gt;-->
+<!--            <div class="card">-->
+<!--                <div class="card-img" style="background-image:url('https://lh3.googleusercontent.com/...'); position:relative;">-->
+<!--                    <span class="badge" style="position:absolute; top:0.5rem; right:0.5rem; background:var(&#45;&#45;accent-yellow); color:#1c0e0d;">HOT</span>-->
+<!--                </div>-->
+<!--                <div style="padding:1rem;">-->
+<!--                    <h3 style="font-weight:bold; margin-bottom:0.25rem;">Combo Gà Giòn Cay A</h3>-->
+<!--                    <p style="font-size:0.75rem; color:var(&#45;&#45;text-muted); margin-bottom:1rem;">2 miếng gà rán, 1 khoai tây chiên size M, 1 Pepsi mát lạnh.</p>-->
+<!--                    <div style="display:flex; justify-content:space-between; align-items:center;">-->
+<!--                        <span style="font-size:1.5rem; font-weight:900; color:var(&#45;&#45;primary);">129.000đ</span>-->
+<!--                        <button class="btn btn-primary" style="width:2.5rem; height:2.5rem; border-radius:0.75rem; font-size:1.25rem;">+</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; Thêm 3 card còn lại tương tự &ndash;&gt;-->
+<!--        </div>-->
+<!--    </section>-->
+
+    <section style="margin-bottom:4rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+            <h2 style="font-size:1.875rem; font-weight:800;">Bán Chạy Nhất</h2>
+            <a href="#" style="color:var(--primary); font-weight:bold; text-decoration:none; display:flex; align-items:center; gap:0.25rem;">Xem tất cả <span>→</span></a>
+        </div>
+    <div class="products-grid">
+
+        <div class="card" th:each="item : ${bestSellers}">
+            <div class="card-img"
+                 th:style="'background-image:url(' + ${item.imageUrl} + ')'">
+            <span class="badge"
+                  th:if="${item.size != null}">
+                HOT
+            </span>
+
+            </div>
+
+            <div style="padding:1rem;">
+                <h3 th:text="${item.name}"></h3>
+
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;"
+                   th:text="${item.description}">
+                </p>
+
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:1.5rem; font-weight:900; color:var(--primary);"
+                      th:text="${#numbers.formatDecimal(item.price,0,'COMMA',0,'POINT')} + 'đ'">
+                </span>
+
+                    <button class="btn btn-primary">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!--   Combo Ưu đãi -->
+    <section style="margin-bottom:4rem;">
+        <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:2rem; @media (min-width:768px){flex-direction:row; justify-content:space-between; align-items:flex-end;}">
+            <div>
+                <h2 style="font-size:1.875rem; font-weight:800;">Combo Ưu Đãi</h2>
+                <p style="color:var(--text-muted); font-weight:500;">Lựa chọn hoàn hảo cho mọi dịp</p>
+            </div>
+        </div>
+
+        <div class="combo-grid">
+            <!-- Combo lớn -->
+            <div class="combo-large soft-shadow">
+                <div class="bg-cover" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVVrIePe7HaSvjhW-Qv2Lb5Xs329EXSspcitu1vGF9W_4tyEr6l1dikfFhwiC0Xu44Ahka6I55BUzkuaLzXH7OlrgHygZKUOzYbh0bKfI7dH_FixsUByaT541wII-nQ74NFmJgP6V-XB931bduQ-F3liKmGiGBQbpd4naGYGg7GOCsWYfItiSvp-x0dd4_ayW7smF-GGj3yKi0Rohgl_6iFq-Jil3KIjTISJF_nQZzxC86VLP7itSVKpHlHcE6g4oNdgjAVMlXn4vd');"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4), transparent);"></div>
+                <div style="position:absolute; top:2rem; left:2rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+                    <span class="badge" style="background:var(--primary); color:white;">Bestseller</span>
+                    <span class="badge" style="background:var(--accent-yellow); color:black;">Tiết kiệm 20%</span>
+                </div>
+                <div style="position:absolute; bottom:0; left:0; padding:2rem; color:white; width:100%; @media (min-width:1024px){padding:3rem;}">
+                    <h3 class="text-shadow-sm" style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight:900; line-height:1.1; margin-bottom:1rem;">Combo Gia Đình<br>Đại Tiệc</h3>
+                    <p style="opacity:0.9; margin-bottom:2rem; max-width:36rem;">Set ăn thịnh soạn gồm 9 miếng gà rán truyền thống, 2 burger bò phô mai, 2 khoai tây chiên cỡ lớn và 1 bình Pepsi 1.5L. Phù hợp cho bữa tiệc gia đình 4-6 người.</p>
+                    <div style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center;">
+                        <div>
+                            <p style="font-size:0.75rem; opacity:0.7; font-weight:bold; text-transform:uppercase; margin-bottom:0.25rem;">Chỉ với</p>
+                            <span style="font-size:2.25rem; font-weight:900; color:var(--accent-yellow);">499.000đ</span>
+                        </div>
+                        <button class="btn btn-primary" style="flex:1; min-width:180px; box-shadow:0 10px 20px -5px rgba(242,32,13,0.3);">Đặt ngay <span>🛒</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hai combo nhỏ -->
+            <div style="display:flex; flex-direction:column; gap:1.5rem;">
+                <!-- Sinh viên -->
+                <div class="combo-small soft-shadow">
+                    <div class="bg-cover" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuA50wzkXAzhRMGpjD_wgrlBP85pWz2iRm4v237_wbCgGfOm6E3S_qWoafK4wMvDL6Sm9wjDjL_x5KbBOZyi1eMAR9fd5Ux1zrVl07FTrY1W0G2pNmGPcJvvOeZoKDUEiV7hCaHw0tMsaBkNJXPEiB6cTWS4r1EygHGYvm-lUazJvYTBSkBn7oCJbSnsos84i2ai9Vk8BuCWe8NGL5Wkoj27pKchz6uMSYMWspqMwESnvu5ltTf4Ai5bymqHvuTbgh3AIjij_YkaAWoj');"></div>
+                    <div style="position:absolute; inset:0; background:linear-gradient(to top right, rgba(242,32,13,0.9), transparent); opacity:0.8;"></div>
+                    <div style="position:absolute; inset:0; padding:2rem; display:flex; flex-direction:column; justify-content:flex-end; color:white;">
+                        <div style="margin-bottom:auto; text-align:right;">
+                            <div style="width:5rem; height:5rem; background:var(--accent-yellow); color:black; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; transform:rotate(12deg); box-shadow:0 10px 25px -5px rgba(0,0,0,0.3); border:4px solid rgba(255,255,255,0.2);">
+                                <span style="font-size:0.625rem; font-weight:900; text-transform:uppercase;">Đồng giá</span>
+                                <span style="font-size:1.5rem; font-weight:900;">45k</span>
+                            </div>
+                        </div>
+                        <h3 style="font-size:1.5rem; font-weight:900; margin:0.5rem 0; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Combo Sinh Viên</h3>
+                        <p style="font-weight:bold; opacity:0.9; margin-bottom:1.5rem;">Nạp năng lượng, bùng nổ đam mê!</p>
+                        <button class="btn" style="background:white; color:var(--primary);">Đặt ngay <span>⚡</span></button>
+                    </div>
+                </div>
+
+                <!-- Cặp đôi -->
+                <div class="combo-small soft-shadow">
+                    <div class="bg-cover" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1kI_UKSmL4klHqxELKWEx6JLG66yBryTlbCerrN2aW3F3JG1WsGleVRLBXr7endziK695ZSU7axyYrY3dnYHdGAoQwTKCWvf2jiCrySr-2wixWKq6P2QInOr3kHeZrZjFsHYb0a3ThPda-BOHaMK_RvbBQ1LMwpuCFhR_04dmaJO-_rqKhjtDiIRA0DGX4sVUp3OgI_pJZp_wTGJmQCowYCu5K0L05ZzxS8NedNOH2gvD9kEGq5xJAo7_rVBjnkWysipZSz79wlhM');"></div>
+                    <div style="position:absolute; inset:0; background:rgba(0,0,0,0.5); transition:background 0.3s;"></div>
+                    <div style="position:absolute; inset:0; padding:2rem; display:flex; flex-direction:column; justify-content:flex-end; color:white; text-align:center;">
+                        <span class="badge" style="background:white; color:var(--primary); margin:0 auto 0.75rem; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">Hẹn hò lý tưởng</span>
+                        <h3 style="font-size:1.5rem; font-weight:900; margin-bottom:0.5rem; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Combo Cặp Đôi</h3>
+                        <p style="font-weight:bold; opacity:0.8; margin-bottom:1.5rem;">Nhân đôi niềm vui - Chỉ 189k</p>
+                        <button class="btn btn-primary">Đặt cho 2 người <span>❤️</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ✅ GỌI footer -->
+    <div th:replace="layout/footer :: footer"></div>
+</div>
+
+
+<script>
+    let currentSlide = 0;
+    const slides = document.getElementById('slides');
+    const totalSlides = slides.children.length;
+
+    function showSlide(index) {
+        if (index >= totalSlides) index = 0;
+        if (index < 0) index = totalSlides - 1;
+        currentSlide = index;
+        slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function prevSlide() { showSlide(currentSlide - 1); }
+
+    // Auto slide (tùy chọn)
+    // setInterval(nextSlide, 5000);
+</script>
+</body>
+</html>
