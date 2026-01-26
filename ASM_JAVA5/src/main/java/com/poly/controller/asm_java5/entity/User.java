@@ -15,8 +15,18 @@ public class User {
     private Integer id;
 
     private String fullname;
-    private String email;
+    private String Email;
     private String phone;
     private String password;
-    private String role;
+    private String Role;
+
+    public Object getEmail() {
+        return null;
+    }
+    public Object getPhone() {
+        return null;
+    }
+    public Object setRole(String user) {
+        return null;
+    }
 }
