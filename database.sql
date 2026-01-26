@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 ﻿/* =========================================
    TẠO DATABASE
 ========================================= */
 CREATE DATABASE WEB_BAN_DO_AN;
+=======
+﻿CREATE DATABASE WEB_BAN_DO_AN;
+>>>>>>> BE
 GO
 USE WEB_BAN_DO_AN;
 GO
                      
+<<<<<<< HEAD
 
 CREATE TABLE users (
     id INT IDENTITY PRIMARY KEY,
@@ -113,6 +118,8 @@ CREATE TABLE payments (
    DATABASE STRUCTURE
    ========================= */
 
+=======
+>>>>>>> BE
 /* ---------- USERS ---------- */
 CREATE TABLE users (
     id INT IDENTITY PRIMARY KEY,
@@ -129,6 +136,14 @@ CREATE TABLE users (
     CHECK (role IN ('USER', 'ADMIN'))
 );
 
+<<<<<<< HEAD
+=======
+INSERT INTO users (fullname, email, phone, password, role) VALUES
+(N'Admin System', 'admin@gmail.com', '0900000000', '123456', 'ADMIN'),
+(N'Nguyễn Văn A', 'user@gmail.com', '0911111111', '123456', 'USER'),
+(N'Trần Thị B', NULL, '0922222222', '123456', 'USER');
+
+>>>>>>> BE
 
 /* ---------- MENUS ---------- */
 CREATE TABLE menus (
@@ -137,7 +152,10 @@ CREATE TABLE menus (
     is_active BIT NOT NULL DEFAULT 1
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> BE
 /* ---------- MENU TYPES ---------- */
 CREATE TABLE menu_types (
     id INT IDENTITY PRIMARY KEY,
@@ -151,7 +169,10 @@ CREATE TABLE menu_types (
         ON DELETE CASCADE
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> BE
 /* ---------- MENU ITEMS ---------- */
 CREATE TABLE menu_items (
     id INT IDENTITY PRIMARY KEY,
@@ -172,7 +193,10 @@ CREATE TABLE menu_items (
         ON DELETE CASCADE
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> BE
 /* ---------- ORDERS ---------- */
 CREATE TABLE orders (
     id INT IDENTITY PRIMARY KEY,
@@ -206,7 +230,10 @@ CREATE TABLE orders (
         REFERENCES users(id)
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> BE
 /* ---------- ORDER ITEMS ---------- */
 CREATE TABLE order_items (
     id INT IDENTITY PRIMARY KEY,
@@ -231,7 +258,10 @@ CREATE TABLE order_items (
         REFERENCES menu_items(id)
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> BE
 /* ---------- PAYMENTS ---------- */
 CREATE TABLE payments (
     id INT IDENTITY PRIMARY KEY,
@@ -251,3 +281,84 @@ CREATE TABLE payments (
         REFERENCES orders(id)
         ON DELETE CASCADE
 );
+<<<<<<< HEAD
+=======
+
+INSERT INTO menus (name) VALUES
+(N'Combo'),
+(N'Gà Rán'),
+(N'Nước Uống'),
+(N'Burger');
+
+INSERT INTO menu_types (menu_id, name) VALUES
+-- Combo
+(1, N'Combo Bán Chạy'),
+(1, N'Combo Gia Đình'),
+
+-- Gà rán
+(2, N'Gà Giòn Cay'),
+(2, N'Gà Truyền Thống'),
+
+-- Nước uống
+(3, N'Nước Có Ga'),
+(3, N'Nước Không Ga'),
+
+-- Burger
+(4, N'Burger Bò'),
+(4, N'Burger Gà');
+
+INSERT INTO menu_items
+(menu_type_id, name, image_url, size, description, price)
+VALUES
+-- 🔥 COMBO BÁN CHẠY
+(1, N'Combo Gà Giòn Cay A',
+ 'https://lh3.googleusercontent.com/xxxxx1',
+ 'M',
+ N'2 miếng gà giòn cay, khoai tây chiên M, Pepsi mát lạnh',
+ 129000),
+
+(1, N'Combo Gà Truyền Thống B',
+ 'https://lh3.googleusercontent.com/xxxxx2',
+ 'L',
+ N'3 miếng gà truyền thống, khoai tây L, 2 Pepsi',
+ 169000),
+
+-- 🍗 GÀ RÁN
+(3, N'Gà Giòn Cay (1 miếng)',
+ 'https://lh3.googleusercontent.com/xxxxx3',
+ NULL,
+ N'Gà rán giòn cay, nóng hổi',
+ 35000),
+
+(4, N'Gà Truyền Thống (1 miếng)',
+ 'https://lh3.googleusercontent.com/xxxxx4',
+ NULL,
+ N'Gà rán truyền thống giòn rụm',
+ 32000),
+
+-- 🥤 NƯỚC UỐNG
+(5, N'Pepsi Lon',
+ 'https://lh3.googleusercontent.com/xxxxx5',
+ NULL,
+ N'Pepsi mát lạnh sảng khoái',
+ 15000),
+
+(6, N'Trà Đào',
+ 'https://lh3.googleusercontent.com/xxxxx6',
+ NULL,
+ N'Trà đào thanh mát',
+ 20000),
+
+-- 🍔 BURGER
+(7, N'Burger Bò Phô Mai',
+ 'https://lh3.googleusercontent.com/xxxxx7',
+ NULL,
+ N'Burger bò phô mai béo ngậy',
+ 45000),
+
+(8, N'Burger Gà Giòn',
+ 'https://lh3.googleusercontent.com/xxxxx8',
+ NULL,
+ N'Burger gà giòn cay',
+ 42000);
+>>>>>>> BE
