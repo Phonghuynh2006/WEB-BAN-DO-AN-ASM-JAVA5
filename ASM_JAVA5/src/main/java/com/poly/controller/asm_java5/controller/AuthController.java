@@ -15,10 +15,10 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    /* ===== HIỂN THỊ TRANG AUTH (LOGIN + REGISTER) ===== */
+    /* ===== HIỂN THỊ TRANG LOGIN + REGISTER ===== */
     @GetMapping("/login")
     public String showAuthPage() {
-        return "auth/auth"; // 1 file auth.html chứa 2 tab
+        return "auth/auth"; // templates/auth/auth.html
     }
 
     /* ===== LOGIN ===== */
@@ -33,7 +33,7 @@ public class AuthController {
 
         if (user == null) {
             model.addAttribute("loginError", "Sai tài khoản hoặc mật khẩu");
-            return "auth/auth"; // quay lại đúng tab login
+            return "auth/auth";
         }
 
         session.setAttribute("user", user);
@@ -50,7 +50,7 @@ public class AuthController {
 
         if (!success) {
             model.addAttribute("registerError", "Email hoặc SĐT đã tồn tại");
-            return "auth/auth"; // quay lại đúng tab register
+            return "auth/auth";
         }
 
         return "redirect:/auth/login";

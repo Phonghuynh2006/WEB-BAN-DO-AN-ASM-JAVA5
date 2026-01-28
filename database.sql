@@ -1,8 +1,125 @@
+<<<<<<< HEAD
+﻿/* =========================================
+   TẠO DATABASE
+========================================= */
+CREATE DATABASE WEB_BAN_DO_AN;
+=======
 ﻿CREATE DATABASE WEB_BAN_DO_AN;
+>>>>>>> BE
 GO
 USE WEB_BAN_DO_AN;
 GO
                      
+<<<<<<< HEAD
+
+CREATE TABLE users (
+    id INT IDENTITY PRIMARY KEY,
+    fullname NVARCHAR(100) NOT NULL,
+    email NVARCHAR(100) NULL,
+    phone NVARCHAR(15) NULL,
+    password NVARCHAR(255) NOT NULL,
+    role NVARCHAR(20) NOT NULL DEFAULT 'USER',
+
+    CONSTRAINT CK_users_email_or_phone
+    CHECK (
+        email IS NOT NULL OR phone IS NOT NULL
+    )
+);
+
+CREATE TABLE menus (
+    id INT IDENTITY PRIMARY KEY,
+    name NVARCHAR(50) NOT NULL UNIQUE,
+    is_active BIT NOT NULL DEFAULT 1
+);
+
+
+CREATE TABLE menu_types (
+    id INT IDENTITY PRIMARY KEY,
+    menu_id INT NOT NULL,
+    name NVARCHAR(50) NOT NULL,
+    is_active BIT NOT NULL DEFAULT 1,
+
+    CONSTRAINT FK_menu_types_menu
+        FOREIGN KEY (menu_id)
+        REFERENCES menus(id)
+);
+
+CREATE TABLE menu_items (
+    id INT IDENTITY PRIMARY KEY,
+
+    menu_type_id INT NOT NULL,
+
+    name NVARCHAR(100) NOT NULL,
+
+    image_url NVARCHAR(255) NULL,
+
+    size NVARCHAR(20) NULL,      -- S, M, L (hoặc NULL nếu không có size)
+
+    description NVARCHAR(255) NULL,
+
+    price DECIMAL(10,2) NOT NULL CHECK (price > 0),
+
+    is_available BIT NOT NULL DEFAULT 1,
+
+    CONSTRAINT FK_menu_items_menu_type
+        FOREIGN KEY (menu_type_id)
+        REFERENCES menu_types(id)
+);
+
+CREATE TABLE orders (
+    id INT IDENTITY PRIMARY KEY,
+
+    user_id INT NULL,  -- có thể NULL nếu khách vãng lai
+
+    order_type NVARCHAR(20) NOT NULL,
+    -- SHIP | COUNTER
+
+    customer_name NVARCHAR(100) NOT NULL,
+    phone NVARCHAR(15) NOT NULL,
+
+    address NVARCHAR(255) NULL,   -- chỉ dùng cho SHIP
+
+    note NVARCHAR(255) NULL,
+
+    total_amount DECIMAL(10,2) NOT NULL CHECK (total_amount >= 0),
+
+    order_status NVARCHAR(20) NOT NULL DEFAULT 'PENDING',
+    -- PENDING | PAID | CANCELLED
+
+    created_at DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
+
+    CONSTRAINT CK_orders_address_for_ship
+    CHECK (
+        (order_type = 'SHIP' AND address IS NOT NULL)
+        OR
+        (order_type = 'COUNTER' AND address IS NULL)
+    )
+);
+CREATE TABLE payments (
+    id INT IDENTITY PRIMARY KEY,
+
+    order_id INT NOT NULL,
+
+    payment_method NVARCHAR(20) NOT NULL,
+    -- CASH | TRANSFER
+
+    payment_status NVARCHAR(20) NOT NULL DEFAULT 'SUCCESS',
+    -- SUCCESS | FAILED
+
+    paid_at DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
+
+    CONSTRAINT FK_payments_order
+        FOREIGN KEY (order_id)
+        REFERENCES orders(id)
+);
+
+
+/* =========================
+   DATABASE STRUCTURE
+   ========================= */
+
+=======
+>>>>>>> BE
 /* ---------- USERS ---------- */
 CREATE TABLE users (
     id INT IDENTITY PRIMARY KEY,
@@ -19,11 +136,14 @@ CREATE TABLE users (
     CHECK (role IN ('USER', 'ADMIN'))
 );
 
+<<<<<<< HEAD
+=======
 INSERT INTO users (fullname, email, phone, password, role) VALUES
 (N'Admin System', 'admin@gmail.com', '0900000000', '123456', 'ADMIN'),
 (N'Nguyễn Văn A', 'user@gmail.com', '0911111111', '123456', 'USER'),
 (N'Trần Thị B', NULL, '0922222222', '123456', 'USER');
 
+>>>>>>> BE
 
 /* ---------- MENUS ---------- */
 CREATE TABLE menus (
@@ -32,6 +152,10 @@ CREATE TABLE menus (
     is_active BIT NOT NULL DEFAULT 1
 );
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> BE
 /* ---------- MENU TYPES ---------- */
 CREATE TABLE menu_types (
     id INT IDENTITY PRIMARY KEY,
@@ -45,6 +169,10 @@ CREATE TABLE menu_types (
         ON DELETE CASCADE
 );
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> BE
 /* ---------- MENU ITEMS ---------- */
 CREATE TABLE menu_items (
     id INT IDENTITY PRIMARY KEY,
@@ -65,6 +193,10 @@ CREATE TABLE menu_items (
         ON DELETE CASCADE
 );
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> BE
 /* ---------- ORDERS ---------- */
 CREATE TABLE orders (
     id INT IDENTITY PRIMARY KEY,
@@ -98,6 +230,10 @@ CREATE TABLE orders (
         REFERENCES users(id)
 );
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> BE
 /* ---------- ORDER ITEMS ---------- */
 CREATE TABLE order_items (
     id INT IDENTITY PRIMARY KEY,
@@ -122,6 +258,10 @@ CREATE TABLE order_items (
         REFERENCES menu_items(id)
 );
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> BE
 /* ---------- PAYMENTS ---------- */
 CREATE TABLE payments (
     id INT IDENTITY PRIMARY KEY,
@@ -141,6 +281,8 @@ CREATE TABLE payments (
         REFERENCES orders(id)
         ON DELETE CASCADE
 );
+<<<<<<< HEAD
+=======
 
 INSERT INTO menus (name) VALUES
 (N'Combo'),
@@ -219,3 +361,4 @@ VALUES
  NULL,
  N'Burger gà giòn cay',
  42000);
+>>>>>>> BE

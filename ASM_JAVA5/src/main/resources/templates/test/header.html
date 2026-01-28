@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2200d",
+                        "background-light": "#fafaf9",
+                        "background-dark": "#1a1a1a",
+                        "accent-yellow": "#f2d824",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .soft-shadow {
+            box-shadow: 0 10px 30px -10px rgba(242, 32, 13, 0.12);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(242, 32, 13, 0.2);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+<!-- Footer -->
+<footer xmlns:th="http://www.thymeleaf.org" th:fragment="footer" class="bg-white dark:bg-[#111] border-t border-[#f4e8e7] dark:border-[#333] pt-16 pb-8">
+    <div class="max-w-[1200px] mx-auto px-4 lg:px-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined text-xl">restaurant</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold tracking-tight">Fast Food Home</h2>
+                </div>
+                <p class="text-sm text-[#9c5049] dark:text-[#a0a0a0] leading-relaxed">
+                    Mang tinh hoa gà rán thế giới đến từng bữa ăn của người Việt. Nhanh chóng, tiện lợi và luôn nóng hổi.
+                </p>
+                <div class="flex gap-4 mt-6">
+                    <a class="size-10 rounded-full bg-[#f4e8e7] dark:bg-[#2a2a2a] flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
+                        <span class="material-symbols-outlined">social_leaderboard</span>
+                    </a>
+                    <a class="size-10 rounded-full bg-[#f4e8e7] dark:bg-[#2a2a2a] flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
+                        <span class="material-symbols-outlined">alternate_email</span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Liên kết</h4>
+                <ul class="space-y-4 text-sm text-[#9c5049] dark:text-[#a0a0a0]">
+                    <li><a class="hover:text-primary" href="#">Về chúng tôi</a></li>
+                    <li><a class="hover:text-primary" href="#">Tuyển dụng</a></li>
+                    <li><a class="hover:text-primary" href="#">Chính sách bảo mật</a></li>
+                    <li><a class="hover:text-primary" href="#">Điều khoản sử dụng</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Hỗ trợ</h4>
+                <ul class="space-y-4 text-sm text-[#9c5049] dark:text-[#a0a0a0]">
+                    <li><a class="hover:text-primary" href="#">Câu hỏi thường gặp</a></li>
+                    <li><a class="hover:text-primary" href="#">Theo dõi đơn hàng</a></li>
+                    <li><a class="hover:text-primary" href="#">Liên hệ góp ý</a></li>
+                    <li><a class="hover:text-primary" href="#">Hệ thống cửa hàng</a></li>
+                </ul>
+            </div>
+<!--            <div>-->
+<!--                <h4 class="font-bold mb-6">Tải ứng dụng</h4>-->
+<!--                <p class="text-sm text-[#9c5049] dark:text-[#a0a0a0] mb-4">Nhận ưu đãi 50% cho đơn hàng đầu tiên trên App.</p>-->
+<!--                <div class="space-y-3">-->
+<!--                    <div class="h-12 bg-black rounded-xl flex items-center px-4 gap-3 cursor-pointer">-->
+<!--                        <span class="material-symbols-outlined text-white text-3xl">phone_iphone</span>-->
+<!--                        <div class="text-white">-->
+<!--                            <p class="text-[10px] uppercase opacity-60 leading-none">Download on</p>-->
+<!--                            <p class="font-bold leading-none">App Store</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="h-12 bg-black rounded-xl flex items-center px-4 gap-3 cursor-pointer">-->
+<!--                        <span class="material-symbols-outlined text-white text-3xl">play_store_installed</span>-->
+<!--                        <div class="text-white">-->
+<!--                            <p class="text-[10px] uppercase opacity-60 leading-none">Get it on</p>-->
+<!--                            <p class="font-bold leading-none">Google Play</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+
+        <div class="border-t border-[#f4e8e7] dark:border-[#333] pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#9c5049] dark:text-[#a0a0a0]">
+            <p>© 2024 Fast Food Home Vietnam. All rights reserved.</p>
+            <div class="flex items-center gap-6">
+                <p>Hotline: 1900 1234</p>
+                <p>Email: hotro@fastfoodhome.vn</p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
