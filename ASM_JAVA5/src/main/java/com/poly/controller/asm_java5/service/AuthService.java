@@ -28,8 +28,8 @@ public class AuthService {
 
     // REGISTER
     public boolean register(User user) {
-        if (user.getEmail() != null && repo.existsByEmail(user.getEmail())) return false;
-        if (user.getPhone() != null && repo.existsByPhone(user.getPhone())) return false;
+        if (user.getEmail() != null && repo.existsByEmail((String) user.getEmail())) return false;
+        if (user.getPhone() != null && repo.existsByPhone((String) user.getPhone())) return false;
 
         user.setRole("USER");
         repo.save(user);
