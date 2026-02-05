@@ -26,5 +26,16 @@ public class User {
     @Column(nullable = false)
     private String role;
 
+
+
     // getters & setters
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

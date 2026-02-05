@@ -11,28 +11,18 @@ import java.util.Optional;
 public class AuthService {
 
     @Autowired
-    private UserRepository repo;
+    private UserRepository userRepository;
 
-    // LOGIN
-    public User login(String username, String password) {
-        Optional<User> user;
+    public User login(String emailOrPhone, String password) {
+        Optional<User> userOpt =
+                userRepository.findByEmailOrPhone(emailOrPhone, emailOrPhone);
 
-        if (username.contains("@")) {
-            user = repo.findByEmailAndPassword(username, password);
-        } else {
-            user = repo.findByPhoneAndPassword(username, password);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            if (user.getPassword().equals(password)) {
+                return user;
+            }
         }
-
-        return user.orElse(null);
-    }
-
-    // REGISTER
-    public boolean register(User user) {
-        if (user.getEmail() != null && repo.existsByEmail(user.getEmail())) return false;
-        if (user.getPhone() != null && repo.existsByPhone(user.getPhone())) return false;
-
-        user.setRole("USER");
-        repo.save(user);
-        return true;
+        return null;
     }
 }
