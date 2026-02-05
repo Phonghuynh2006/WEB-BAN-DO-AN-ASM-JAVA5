@@ -18,10 +18,27 @@ public class MenuItem {
         @Column(name = "item_name", nullable = false)
         private String itemName;
 
+        public Integer getItemId() {
+                return itemId;
+        }
+
         private String description;
         private String image;
 
+        public void setItemId(Integer itemId) {
+                this.itemId = itemId;
+        }
+
         private String size;
+
+        public void setMenu(Menu menu) {
+                this.menu = menu;
+        }
+
+        public Menu getMenu() {
+                return menu;
+        }
+
         private Double price;
 
         private Boolean status;
