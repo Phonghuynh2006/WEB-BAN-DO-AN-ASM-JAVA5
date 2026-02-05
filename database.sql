@@ -1,233 +1,116 @@
-
-﻿/* =========================================
-   TẠO DATABASE
-========================================= */
-
-﻿CREATE DATABASE WEB_BAN_DO_AN;
-GO
 USE WEB_BAN_DO_AN;
 GO
-                     
-/* ---------- USERS ---------- */
-CREATE TABLE users (
-    id INT IDENTITY PRIMARY KEY,
-    fullname NVARCHAR(100) NOT NULL,
-    email NVARCHAR(100) NULL,
-    phone NVARCHAR(15) NULL,
-    password NVARCHAR(255) NOT NULL,
-    role NVARCHAR(20) NOT NULL DEFAULT 'USER',
 
-    CONSTRAINT CK_app_users_email_or_phone
-    CHECK (email IS NOT NULL OR phone IS NOT NULL),
-
-    CONSTRAINT CK_app_users_role
-    CHECK (role IN ('USER', 'ADMIN'))
+/* ===== B?NG Users ===== */
+CREATE TABLE Users (
+    user_id INT IDENTITY(1,1) PRIMARY KEY,
+    full_name NVARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NULL,
+    phone VARCHAR(20) UNIQUE NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL
+        CHECK (role IN ('admin', 'customer'))
 );
 
-INSERT INTO users (fullname, email, phone, password, role) VALUES
-(N'Admin System', 'admin@gmail.com', '0900000000', '123456', 'ADMIN'),
-(N'Nguyễn Văn A', 'user@gmail.com', '0911111111', '123456', 'USER'),
-(N'Trần Thị B', NULL, '0922222222', '123456', 'USER');
-
-
-
-/* ---------- MENUS ---------- */
-CREATE TABLE menus (
-    id INT IDENTITY PRIMARY KEY,
-    name NVARCHAR(50) NOT NULL UNIQUE,
-    is_active BIT NOT NULL DEFAULT 1
-);
-
-
-/* ---------- MENU TYPES ---------- */
-CREATE TABLE menu_types (
-    id INT IDENTITY PRIMARY KEY,
-    menu_id INT NOT NULL,
-    name NVARCHAR(50) NOT NULL,
-    is_active BIT NOT NULL DEFAULT 1,
-
-    CONSTRAINT FK_menu_types_menu
-        FOREIGN KEY (menu_id)
-        REFERENCES menus(id)
-        ON DELETE CASCADE
-);
-
-
-/* ---------- MENU ITEMS ---------- */
-CREATE TABLE menu_items (
-    id INT IDENTITY PRIMARY KEY,
-    menu_type_id INT NOT NULL,
-    name NVARCHAR(100) NOT NULL,
-    image_url NVARCHAR(255) NULL,
-    size NVARCHAR(20) NULL,        -- S, M, L hoặc NULL
-    description NVARCHAR(255) NULL,
-    price DECIMAL(10,2) NOT NULL,
-    is_available BIT NOT NULL DEFAULT 1,
-
-    CONSTRAINT CK_menu_items_price
-        CHECK (price > 0),
-
-    CONSTRAINT FK_menu_items_menu_type
-        FOREIGN KEY (menu_type_id)
-        REFERENCES menu_types(id)
-        ON DELETE CASCADE
-);
-
-
-/* ---------- ORDERS ---------- */
-CREATE TABLE orders (
-    id INT IDENTITY PRIMARY KEY,
-    user_id INT NULL,  -- NULL nếu khách vãng lai
-
-    order_type NVARCHAR(20) NOT NULL,   -- SHIP | COUNTER
-    customer_name NVARCHAR(100) NOT NULL,
-    phone NVARCHAR(15) NOT NULL,
-    address NVARCHAR(255) NULL,         -- chỉ dùng cho SHIP
-    note NVARCHAR(255) NULL,
-
-    total_amount DECIMAL(10,2) NOT NULL DEFAULT 0,
-    order_status NVARCHAR(20) NOT NULL DEFAULT 'PENDING',
-    created_at DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
-
-    CONSTRAINT CK_orders_order_type
-        CHECK (order_type IN ('SHIP', 'COUNTER')),
-
-    CONSTRAINT CK_orders_order_status
-        CHECK (order_status IN ('PENDING', 'PAID', 'CANCELLED')),
-
-    CONSTRAINT CK_orders_address_for_ship
-        CHECK (
-            (order_type = 'SHIP' AND address IS NOT NULL)
-            OR
-            (order_type = 'COUNTER' AND address IS NULL)
-        ),
-
-    CONSTRAINT FK_orders_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-);
-
-
-/* ---------- ORDER ITEMS ---------- */
-CREATE TABLE order_items (
-    id INT IDENTITY PRIMARY KEY,
-    order_id INT NOT NULL,
-    menu_item_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price DECIMAL(10,2) NOT NULL,
-
-    CONSTRAINT CK_order_items_quantity
-        CHECK (quantity > 0),
-
-    CONSTRAINT CK_order_items_price
-        CHECK (price > 0),
-
-    CONSTRAINT FK_order_items_order
-        FOREIGN KEY (order_id)
-        REFERENCES orders(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT FK_order_items_menu_item
-        FOREIGN KEY (menu_item_id)
-        REFERENCES menu_items(id)
-);
-
-
-/* ---------- PAYMENTS ---------- */
-CREATE TABLE payments (
-    id INT IDENTITY PRIMARY KEY,
-    order_id INT NOT NULL,
-    payment_method NVARCHAR(20) NOT NULL,  -- CASH | TRANSFER
-    payment_status NVARCHAR(20) NOT NULL DEFAULT 'SUCCESS',
-    paid_at DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
-
-    CONSTRAINT CK_payments_method
-        CHECK (payment_method IN ('CASH', 'TRANSFER')),
-
-    CONSTRAINT CK_payments_status
-        CHECK (payment_status IN ('SUCCESS', 'FAILED')),
-
-    CONSTRAINT FK_payments_order
-        FOREIGN KEY (order_id)
-        REFERENCES orders(id)
-        ON DELETE CASCADE
-);
-
-
-INSERT INTO menus (name) VALUES
-(N'Combo'),
-(N'Gà Rán'),
-(N'Nước Uống'),
-(N'Burger');
-
-INSERT INTO menu_types (menu_id, name) VALUES
--- Combo
-(1, N'Combo Bán Chạy'),
-(1, N'Combo Gia Đình'),
-
--- Gà rán
-(2, N'Gà Giòn Cay'),
-(2, N'Gà Truyền Thống'),
-
--- Nước uống
-(3, N'Nước Có Ga'),
-(3, N'Nước Không Ga'),
-
--- Burger
-(4, N'Burger Bò'),
-(4, N'Burger Gà');
-
-INSERT INTO menu_items
-(menu_type_id, name, image_url, size, description, price)
+INSERT INTO Users (full_name, email, phone, password, role)
 VALUES
--- 🔥 COMBO BÁN CHẠY
-(1, N'Combo Gà Giòn Cay A',
- 'https://lh3.googleusercontent.com/xxxxx1',
- 'M',
- N'2 miếng gà giòn cay, khoai tây chiên M, Pepsi mát lạnh',
- 129000),
+(N'Nguy?n V?n Admin', 'admin@gmail.com', NULL, '123456', 'admin'),
+(N'Tr?n Th? Lan', 'lan@gmail.com', '0901234567', '123456', 'customer'),
+(N'Lê Minh Tu?n', NULL, '0912345678', '123456', 'customer');
 
-(1, N'Combo Gà Truyền Thống B',
- 'https://lh3.googleusercontent.com/xxxxx2',
- 'L',
- N'3 miếng gà truyền thống, khoai tây L, 2 Pepsi',
- 169000),
 
--- 🍗 GÀ RÁN
-(3, N'Gà Giòn Cay (1 miếng)',
- 'https://lh3.googleusercontent.com/xxxxx3',
- NULL,
- N'Gà rán giòn cay, nóng hổi',
- 35000),
+/* ===== B?NG Menus ===== */
+CREATE TABLE Menus (
+    menu_id INT IDENTITY(1,1) PRIMARY KEY,
+    menu_name NVARCHAR(100) NOT NULL
+);
 
-(4, N'Gà Truyền Thống (1 miếng)',
- 'https://lh3.googleusercontent.com/xxxxx4',
- NULL,
- N'Gà rán truyền thống giòn rụm',
- 32000),
+INSERT INTO Menus (menu_name)
+VALUES
+(N'?? ?n'),
+(N'N??c u?ng'),
+(N'Combo');
 
--- 🥤 NƯỚC UỐNG
-(5, N'Pepsi Lon',
- 'https://lh3.googleusercontent.com/xxxxx5',
- NULL,
- N'Pepsi mát lạnh sảng khoái',
- 15000),
 
-(6, N'Trà Đào',
- 'https://lh3.googleusercontent.com/xxxxx6',
- NULL,
- N'Trà đào thanh mát',
- 20000),
+/* ===== B?NG Menu_Items ===== */
+CREATE TABLE Menu_Items (
+    item_id INT IDENTITY(1,1) PRIMARY KEY,
+    menu_id INT NOT NULL,
+    item_name NVARCHAR(150) NOT NULL,
+    description NVARCHAR(255),
+    image VARCHAR(255),
+    size VARCHAR(5) CHECK (size IN ('S', 'M', 'L')),
+    price DECIMAL(10,2) NOT NULL,
+    status BIT DEFAULT 1,
 
--- 🍔 BURGER
-(7, N'Burger Bò Phô Mai',
- 'https://lh3.googleusercontent.com/xxxxx7',
- NULL,
- N'Burger bò phô mai béo ngậy',
- 45000),
+    CONSTRAINT fk_menu_items_menu
+        FOREIGN KEY (menu_id)
+        REFERENCES Menus(menu_id)
+);
 
-(8, N'Burger Gà Giòn',
- 'https://lh3.googleusercontent.com/xxxxx8',
- NULL,
- N'Burger gà giòn cay',
- 42000);
+INSERT INTO Menu_Items (menu_id, item_name, description, image, size, price, status)
+VALUES
+(1, N'C?m gà x?i m?', N'C?m gà giòn r?m, ?n kèm n??c m?m', 'comga.jpg', 'M', 35000, 1),
+(1, N'C?m s??n n??ng', N'S??n n??ng than hoa', 'comsuon.jpg', 'L', 40000, 1),
+(2, N'Trà s?a trân châu', N'Trà s?a truy?n th?ng', 'trasua.jpg', 'M', 30000, 1);
+
+
+/* ===== B?NG Orders ===== */
+CREATE TABLE Orders (
+    order_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_type VARCHAR(20) CHECK (order_type IN ('SHIP', 'COUNTER')),
+    payment_method VARCHAR(20) CHECK (payment_method IN ('CASH', 'ATM')),
+    note NVARCHAR(255),
+    total_amount DECIMAL(10,2),
+    created_at DATETIME DEFAULT GETDATE()
+);
+
+INSERT INTO Orders (order_type, payment_method, note, total_amount)
+VALUES
+('SHIP', 'ATM', N'Giao gi? hành chính', 95000),
+('COUNTER', 'CASH', N'Mua t?i qu?y', 40000),
+('SHIP', 'CASH', N'G?i tr??c khi giao', 65000);
+
+
+/* ===== B?NG Order_Items ===== */
+CREATE TABLE Order_Items (
+    order_item_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_id INT NOT NULL,
+    item_id INT NOT NULL,
+    item_name NVARCHAR(150),
+    size VARCHAR(5),
+    price DECIMAL(10,2),
+    quantity INT,
+
+    CONSTRAINT fk_order_items_order
+        FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+
+    CONSTRAINT fk_order_items_item
+        FOREIGN KEY (item_id) REFERENCES Menu_Items(item_id)
+);
+
+INSERT INTO Order_Items (order_id, item_id, item_name, size, price, quantity)
+VALUES
+(1, 3, N'Trà s?a trân châu', 'M', 30000, 2),
+(1, 1, N'C?m gà x?i m?', 'M', 35000, 1),
+(2, 2, N'C?m s??n n??ng', 'L', 40000, 1),
+(3, 3, N'Trà s?a trân châu', 'L', 35000, 1),
+(3, 1, N'C?m gà x?i m?', 'M', 30000, 1);
+
+
+/* ===== B?NG Order_Customers ===== */
+CREATE TABLE Order_Customers (
+    order_id INT PRIMARY KEY,
+    customer_name NVARCHAR(100),
+    phone VARCHAR(20),
+    address NVARCHAR(255),
+
+    CONSTRAINT fk_order_customers_order
+        FOREIGN KEY (order_id) REFERENCES Orders(order_id)
+);
+
+INSERT INTO Order_Customers (order_id, customer_name, phone, address)
+VALUES
+(1, N'Nguy?n V?n A', '0909123456', N'123 Lê L?i, Q1'),
+(2, N'Tr?n Th? B', '0912345678', NULL),
+(3, N'Lê Minh C', '0988777666', N'45 Nguy?n Trãi, Q5');
