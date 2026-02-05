@@ -1,37 +1,30 @@
 package com.poly.controller.asm_java5.entity;
 
-import jakarta.persistence.*;   // 👈 IMPORT ĐỦ TẤT CẢ JPA
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "menu_items")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "Menu_Items")
 public class MenuItem {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
+        @Column(name = "item_id")
+        private Integer itemId;
 
-        @Column(name = "menu_type_id")
-        private Integer menuTypeId;
+        @ManyToOne
+        @JoinColumn(name = "menu_id", nullable = false)
+        private Menu menu;
 
-        private String name;
-
-        @Column(name = "image_url")
-        private String imageUrl;
-
-        private String size;
+        @Column(name = "item_name", nullable = false)
+        private String itemName;
 
         private String description;
+        private String image;
 
-        private BigDecimal price;
+        private String size;
+        private Double price;
 
-        @Column(name = "is_available")
-        private Boolean isAvailable;
+        private Boolean status;
+
+        // getters & setters
 }
