@@ -15,48 +15,29 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    /* ===== HIỂN THỊ TRANG LOGIN + REGISTER ===== */
     @GetMapping("/login")
-    public String showAuthPage() {
-        return "auth/auth"; // templates/auth/auth.html
+    public String loginForm() {
+        return "auth/auth";
     }
 
-    /* ===== LOGIN ===== */
     @PostMapping("/login")
     public String login(
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
+            @RequestParam String emailOrPhone,
+            @RequestParam String password,
             HttpSession session,
             Model model
     ) {
-        User user = authService.login(username, password);
+        User user = authService.login(emailOrPhone, password);
 
-        if (user == null) {
-            model.addAttribute("loginError", "Sai tài khoản hoặc mật khẩu");
-            return "auth/auth";
+        if (user != null) {
+            session.setAttribute("user", user);
+            return "redirect:/home";
         }
 
-        session.setAttribute("user", user);
-        return "redirect:/";
+        model.addAttribute("error", "Sai tài khoản hoặc mật khẩu");
+        return "auth/auth";
     }
 
-    /* ===== REGISTER ===== */
-    @PostMapping("/register")
-    public String register(
-            @ModelAttribute User user,
-            Model model
-    ) {
-        boolean success = authService.register(user);
-
-        if (!success) {
-            model.addAttribute("registerError", "Email hoặc SĐT đã tồn tại");
-            return "auth/auth";
-        }
-
-        return "redirect:/auth/login";
-    }
-
-    /* ===== LOGOUT ===== */
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

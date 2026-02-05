@@ -1,19 +1,25 @@
 package com.poly.controller.asm_java5.controller;
 
+import com.poly.controller.asm_java5.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/checkout")
 public class CheckoutController {
 
+    @Autowired
+    private OrderService orderService;
 
-        @GetMapping("/checkout")
-        public String checkout() {
-            return "checkout/checkout"; // templates/auth/auth.html
-        }
+    @GetMapping
+    public String checkoutForm() {
+        return "checkout/checkout";
+    }
 
-
-
+    @PostMapping
+    public String checkout() {
+        // xử lý lưu Order (sẽ gắn chi tiết theo form HTML của bạn)
+        return "redirect:/home";
+    }
 }
