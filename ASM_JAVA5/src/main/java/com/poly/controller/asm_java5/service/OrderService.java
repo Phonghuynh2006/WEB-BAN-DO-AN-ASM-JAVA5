@@ -5,7 +5,7 @@ import com.poly.controller.asm_java5.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -34,7 +34,7 @@ public class OrderService {
         order.setPaymentMethod(paymentMethod);
         order.setNote(note);
         order.setTotalAmount(totalAmount);
-        order.setCreatedAt(new Date());
+        order.setCreatedAt(LocalDateTime.now());
 
         order = orderRepository.save(order);
 
