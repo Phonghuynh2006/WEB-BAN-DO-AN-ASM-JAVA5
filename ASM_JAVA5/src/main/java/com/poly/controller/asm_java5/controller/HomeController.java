@@ -4,7 +4,10 @@ import com.poly.controller.asm_java5.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
+=======
+>>>>>>> origin/AD
 
 @Controller
 public class HomeController {

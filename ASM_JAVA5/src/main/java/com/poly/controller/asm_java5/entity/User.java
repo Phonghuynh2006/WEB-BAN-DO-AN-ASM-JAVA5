@@ -11,6 +11,7 @@ public class User {
     @Column(name = "user_id")
     private Integer userId;
 
+<<<<<<< HEAD
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
@@ -18,10 +19,15 @@ public class User {
     private String email;
 
     @Column(unique = true, nullable = false)
+=======
+    private String fullname;
+    private String Email;
+>>>>>>> origin/AD
     private String phone;
 
     @Column(nullable = false)
     private String password;
+<<<<<<< HEAD
 
     @Column(nullable = false)
     private String role; // USER / ADMIN
@@ -77,4 +83,17 @@ public class User {
         this.role = role;
     }
 
+=======
+    private String Role;
+
+    public Object getEmail() {
+        return null;
+    }
+    public Object getPhone() {
+        return null;
+    }
+    public Object setRole(String user) {
+        return null;
+    }
+>>>>>>> origin/AD
 }
