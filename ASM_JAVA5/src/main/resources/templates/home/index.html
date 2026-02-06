@@ -254,39 +254,31 @@
 <div class="container">
     <!-- ✅ GỌI HEADER -->
     <div th:replace="layout/header :: header"></div>
+
     <!-- Hero Carousel -->
     <div class="carousel">
+
         <div class="slides" id="slides">
             <!-- Slide 1 -->
             <div class="slide" style="background: var(--primary);">
-                <div class="overlay" style="background: linear-gradient(to right, rgba(0,0,0,0.1), transparent); transform: skewX(12deg); translateX(6rem);"></div>
                 <div class="slide-content">
-                    <div class="slide-text">
-                        <span class="badge" style="background:var(--accent-yellow); color:#1c0e0d; margin-bottom:1.5rem; display:inline-block;">Mới & Nóng Hổi</span>
-                        <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight:900; line-height:1.1; margin-bottom:1.5rem;">Giòn Tan Từng Miếng<br>Đặt Hàng Ngay!</h1>
-                        <p style="font-size:1.125rem; opacity:0.9; margin-bottom:2rem; max-width:32rem;">Trải nghiệm hương vị gà rán chuẩn vị với lớp vỏ vàng ươm và thịt mềm ngọt mọng nước.</p>
-                        <div style="display:flex; flex-direction:column; gap:1rem; @media (min-width:640px){flex-direction:row;}">
-                            <button class="btn btn-light">Đặt hàng ngay <span>→</span></button>
-                            <button class="btn" style="background:rgba(0,0,0,0.2); color:white;">Xem thực đơn</button>
-                        </div>
-                    </div>
-                    <div class="slide-img">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnb5Qeb6U2ZSM3xONSHF6albxY8jY-exRhRYLClbKWELtfvf40YG3s3RCU8RS1EAbHZi4AwD-OXkg1BUJ3SD_AXKBnwVDuEy0C0oLn7aDIni7ZxE2kCxQT28ikCGde_5ytJQekXbLMOGZravlx83ACnfLDaN2FNlDL0DxQu1FyqmUBCEpn3St1bTfEildbXVA5Eq-oFFJXqhHn2sbN52uHu_Gddv4jBkCLASaFgwVq4v-rSOdi2_SzoqB-yRM5EqjwW0Z-u_6AaYTM" alt="Gà rán">
-                    </div>
+                    <img src="https://static.kfcvietnam.com.vn/images/content/home/carousel/lg/Party.webp?v=L5Bbb4">
+                </div>
+            </div>
+            <!-- Slide 1 -->
+            <div class="slide" style="background: var(--primary);">
+                <div class="slide-content">
+                    <img src="https://static.kfcvietnam.com.vn/images/content/home/carousel/lg/KV-Menu-Tet.webp?v=L5Bbb4">
                 </div>
             </div>
 
-            <!-- Slide 2, 3, 4 tương tự - bạn copy & thay nội dung/ảnh/màu nền -->
-            <!-- Ví dụ Slide 2 -->
-            <div class="slide" style="background: var(--dark);">
-                <!-- ... tương tự cấu trúc trên, thay nội dung ... -->
-            </div>
-            <!-- Thêm slide còn lại -->
         </div>
 
         <button onclick="prevSlide()" style="position:absolute; left:1rem; top:50%; transform:translateY(-50%); width:4rem; height:4rem; background:rgba(255,255,255,0.3); border:none; border-radius:1rem; color:white; font-size:2rem; cursor:pointer;">←</button>
         <button onclick="nextSlide()" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); width:4rem; height:4rem; background:rgba(255,255,255,0.3); border:none; border-radius:1rem; color:white; font-size:2rem; cursor:pointer;">→</button>
     </div>
+
+
 
 <!--    &lt;!&ndash; Bán chạy nhất &ndash;&gt;-->
 <!--    <section style="margin-bottom:4rem;">-->
@@ -316,38 +308,47 @@
     <section style="margin-bottom:4rem;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
             <h2 style="font-size:1.875rem; font-weight:800;">Bán Chạy Nhất</h2>
-            <a href="#" style="color:var(--primary); font-weight:bold; text-decoration:none; display:flex; align-items:center; gap:0.25rem;">Xem tất cả <span>→</span></a>
         </div>
-    <div class="products-grid">
 
-        <div class="card" th:each="item : ${bestSellers}">
-            <div class="card-img"
-                 th:style="'background-image:url(' + ${item.imageUrl} + ')'">
-            <span class="badge"
-                  th:if="${item.size != null}">
-                HOT
-            </span>
+        <div class="products-grid">
+            <div class="card" th:each="item : ${bestSellers}">
 
-            </div>
-
-            <div style="padding:1rem;">
-                <h3 th:text="${item.name}"></h3>
-
-                <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;"
-                   th:text="${item.description}">
-                </p>
-
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:1.5rem; font-weight:900; color:var(--primary);"
-                      th:text="${#numbers.formatDecimal(item.price,0,'COMMA',0,'POINT')} + 'đ'">
+                <!-- IMAGE -->
+                <div class="card-img"
+                     th:style="'background-image:url(' + ${item.image} + ')'">
+                <span class="badge" th:if="${item.size != null}">
+                    HOT
                 </span>
-
-                    <button class="btn btn-primary">+</button>
                 </div>
+
+                <div style="padding:1rem;">
+                    <!-- NAME -->
+                    <h3 th:text="${item.itemName}"></h3>
+
+                    <!-- DESCRIPTION -->
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;"
+                       th:text="${item.description}">
+                    </p>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <!-- PRICE -->
+                        <span style="font-size:1.5rem; font-weight:900; color:var(--primary);"
+                              th:text="${#numbers.formatDecimal(item.price,0,'COMMA',0,'POINT')} + 'đ'">
+                    </span>
+
+                        <!-- ADD TO CART -->
+                        <form th:action="@{/cart/add}" method="post">
+                            <input type="hidden" name="itemId" th:value="${item.itemId}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button class="btn btn-primary" type="submit">+</button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
 
 
     <section style="margin-bottom:4rem;">

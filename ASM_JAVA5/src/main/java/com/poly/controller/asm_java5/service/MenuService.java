@@ -18,15 +18,23 @@ public class MenuService {
     @Autowired
     private MenuItemRepository menuItemRepository;
 
+    // load menu
     public List<Menu> findAllMenus() {
         return menuRepository.findAll();
     }
 
+    // load item theo menu
     public List<MenuItem> findItemsByMenu(Integer menuId) {
         return menuItemRepository.findByMenu_MenuIdAndStatusTrue(menuId);
     }
 
+    // chi tiết sản phẩm
     public MenuItem findItemById(Integer itemId) {
         return menuItemRepository.findById(itemId).orElse(null);
+    }
+
+    // ✅ FIX CHÍNH Ở ĐÂY – LOAD SẢN PHẨM TRANG HOME
+    public List<MenuItem> findBestSellers() {
+        return menuItemRepository.findByStatusTrue();
     }
 }

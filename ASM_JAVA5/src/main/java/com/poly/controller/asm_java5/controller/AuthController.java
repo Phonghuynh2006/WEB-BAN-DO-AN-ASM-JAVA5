@@ -15,6 +15,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    // ===== LOGIN =====
     @GetMapping("/login")
     public String loginForm() {
         return "auth/auth";
@@ -34,10 +35,29 @@ public class AuthController {
             return "redirect:/home";
         }
 
-        model.addAttribute("error", "Sai tài khoản hoặc mật khẩu");
+        model.addAttribute("loginError", "Sai tài khoản hoặc mật khẩu");
         return "auth/auth";
     }
 
+    // ===== REGISTER =====
+    @PostMapping("/register")
+    public String register(
+            @RequestParam("fullName") String fullName, // 👈 PHẢI ĐÚNG TÊN
+            @RequestParam String email,
+            @RequestParam String phone,
+            @RequestParam String password,
+            Model model
+    ) {
+        try {
+            authService.register(fullName, email, phone, password);
+            return "redirect:/auth/login";
+        } catch (RuntimeException e) {
+            model.addAttribute("registerError", e.getMessage());
+            return "auth/auth";
+        }
+    }
+
+    // ===== LOGOUT =====
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

@@ -1,12 +1,13 @@
 package com.poly.controller.asm_java5.service;
 
 import com.poly.controller.asm_java5.entity.*;
+import com.poly.controller.asm_java5.model.CartItem;
 import com.poly.controller.asm_java5.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderService {
@@ -20,31 +21,44 @@ public class OrderService {
     @Autowired
     private OrderCustomerRepository orderCustomerRepository;
 
-    public Order createOrder(
-            String orderType,
-            String paymentMethod,
-            String note,
-            Double totalAmount,
-            OrderCustomer customer,
-            List<OrderItem> items
+    // ✅ METHOD CHUẨN – KHỚP CheckoutController
+    public Order createOrderFromCart(
+            Map<Integer, CartItem> cart,
+            String customerName,
+            String phone,
+            String address
     ) {
 
+        // 1️⃣ tạo Order
         Order order = new Order();
-        order.setOrderType(orderType);
-        order.setPaymentMethod(paymentMethod);
-        order.setNote(note);
-        order.setTotalAmount(totalAmount);
+        order.setOrderType("ONLINE");
+        order.setPaymentMethod("COD");
+        order.setNote("");
         order.setCreatedAt(LocalDateTime.now());
 
+        double total = cart.values()
+                .stream()
+                .mapToDouble(CartItem::getTotalPrice)
+                .sum();
+
+        order.setTotalAmount(total);
         order = orderRepository.save(order);
 
-        // customer
+        // 2️⃣ OrderCustomer (KHÔNG dùng User)
+        OrderCustomer customer = new OrderCustomer();
         customer.setOrder(order);
+        customer.setCustomerName(customerName);
+        customer.setPhone(phone);
+        customer.setAddress(address);
         orderCustomerRepository.save(customer);
 
-        // items
-        for (OrderItem item : items) {
+        // 3️⃣ OrderItem
+        for (CartItem cartItem : cart.values()) {
+            OrderItem item = new OrderItem();
             item.setOrder(order);
+            item.setMenuItem(cartItem.getItem());
+            item.setQuantity(cartItem.getQuantity());
+            item.setPrice(cartItem.getItem().getPrice());
             orderItemRepository.save(item);
         }
 

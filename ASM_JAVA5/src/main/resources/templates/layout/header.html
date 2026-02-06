@@ -1,4 +1,6 @@
 
+
+
 <header xmlns:th="http://www.thymeleaf.org" th:fragment="header" class="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-[#f4e8e7] dark:border-[#333]">
     <div class="max-w-[1200px] mx-auto px-4 lg:px-10 h-20 flex items-center justify-between">
         <div class="flex items-center gap-12">
@@ -7,7 +9,7 @@
                     <span class="material-symbols-outlined text-3xl">restaurant</span>
                 </div>
 
-                <h2 class="text-xl font-extrabold tracking-tight hidden sm:block">Fast Food Home</h2>
+                <a class="text-xl font-extrabold tracking-tight hidden sm:block" href="http://localhost:8080">Fast Food Home</a>
 
 
             </div>
@@ -18,10 +20,24 @@
                     Thực đơn</a>
                 <a class="text-sm font-bold hover:text-primary transition-colors" href="#">Khuyến mãi</a>
 <!--                <a class="text-sm font-bold hover:text-primary transition-colors" href="auth/auth.html">Đăng nhập</a>-->
-                <a class="text-sm font-bold hover:text-primary transition-colors"
+<!--                <a class="text-sm font-bold hover:text-primary transition-colors"-->
+<!--                   th:href="@{/auth/login}">-->
+<!--                    Đăng nhập-->
+<!--                </a>-->
+                <!-- CHƯA ĐĂNG NHẬP -->
+                <a th:if="${session.user == null}"
+                   class="text-sm font-bold hover:text-primary transition-colors"
                    th:href="@{/auth/login}">
                     Đăng nhập
                 </a>
+
+                <!-- ĐÃ ĐĂNG NHẬP -->
+                <a th:if="${session.user != null}"
+                   class="text-sm font-bold hover:text-primary transition-colors"
+                   th:href="@{/auth/logout}">
+                    Đăng xuất
+                </a>
+
 
             </nav>
         </div>
@@ -30,25 +46,21 @@
                 <input class="h-10 w-48 lg:w-64 rounded-xl border-none bg-[#f4e8e7] dark:bg-[#2a2a2a] pl-10 text-sm focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Tìm món ăn..." type="text"/>
                 <span class="material-symbols-outlined absolute left-3 top-2.5 text-[#9c5049] text-xl">search</span>
             </div>
-<!--            <button class="relative flex items-center justify-center size-10 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all">-->
-<!--                <span class="material-symbols-outlined">shopping_basket</span>-->
-<!--                <span class="absolute -top-1 -right-1 size-5 bg-primary text-white text-[10px] font-bold rounded-full border-2 border-background-light flex items-center justify-center">3</span>-->
-<!--            </button>-->
-            <a th:href="@{/cart/cart}"
+
+            <a th:href="@{/cart}"
                class="relative flex items-center justify-center size-10 rounded-xl
           bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all">
 
                 <span class="material-symbols-outlined">shopping_basket</span>
 
-                <span
-                        class="absolute -top-1 -right-1 size-5 bg-primary text-white
-               text-[10px] font-bold rounded-full border-2
-               border-background-light flex items-center justify-center">
-        3
-    </span>
             </a>
 
-<!--            <div class="size-10 rounded-full bg-cover bg-center border-2 border-primary/20" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_WDFTK3Sjg4icFtqaSUh4OtzrI9H-hHjT8Q4pgwPvMVgn2emGgeU6tHEzMbHokiYFRf33g6d4OvY1SC5EoBLlKWRNca2wzGnCmNjE6yhndefRCGebVoU_l-LUxyCeaLG1NxX6dlwrPlA7uIvX7OMvZCL3qtA0Gpt4naznsBXDSDcqJYpVaGfc49D8S6Ox-Gy-Imvijw_9qeDxlEGEhWW8gLZmlEOZ5cyQzumDdEEIhAjbUArAAS9YSmtzPQo2O5NgOh8HhoBpc5P2');"></div>-->
-        </div>
+</div>
+        <a th:if="${session.user != null}"
+           class="text-sm font-bold hover:text-primary transition-colors"
+           th:href="@{/profile}">
+            Xin chào <span th:text="${session.user.fullName}"></span>
+        </a>
+
     </div>
 </header>

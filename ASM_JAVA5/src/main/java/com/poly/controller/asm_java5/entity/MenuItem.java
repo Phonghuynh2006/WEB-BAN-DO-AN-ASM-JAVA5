@@ -18,30 +18,84 @@ public class MenuItem {
         @Column(name = "item_name", nullable = false)
         private String itemName;
 
+        @Column(name = "description")
+        private String description;
+
+        @Column(name = "image")
+        private String image;
+
+        @Column(name = "size")
+        private String size;
+
+        @Column(name = "price")
+        private Double price;
+
+        @Column(name = "status")
+        private Boolean status;
+
+        // ===== GETTERS & SETTERS =====
+
         public Integer getItemId() {
                 return itemId;
         }
 
-        private String description;
-        private String image;
-
         public void setItemId(Integer itemId) {
                 this.itemId = itemId;
-        }
-
-        private String size;
-
-        public void setMenu(Menu menu) {
-                this.menu = menu;
         }
 
         public Menu getMenu() {
                 return menu;
         }
 
-        private Double price;
+        public void setMenu(Menu menu) {
+                this.menu = menu;
+        }
 
-        private Boolean status;
+        public String getItemName() {
+                return itemName;
+        }
 
-        // getters & setters
+        public void setItemName(String itemName) {
+                this.itemName = itemName;
+        }
+
+        public String getDescription() {
+                return description;
+        }
+
+        public void setDescription(String description) {
+                this.description = description;
+        }
+
+        public String getImage() {
+                return image;
+        }
+
+        public void setImage(String image) {
+                this.image = image;
+        }
+
+        public String getSize() {
+                return size;
+        }
+
+        public void setSize(String size) {
+                this.size = size;
+        }
+
+        public Double getPrice() {
+                return price;
+        }
+
+        public void setPrice(Double price) {
+                this.price = price;
+        }
+
+        public Boolean getStatus() {
+                return status;
+        }
+
+        public void setStatus(Boolean status) {
+                this.status = status;
+        }
 }
