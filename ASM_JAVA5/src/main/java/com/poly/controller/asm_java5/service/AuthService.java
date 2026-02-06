@@ -34,9 +34,19 @@ public class AuthService {
             throw new RuntimeException("Email đã tồn tại");
         }
 
+<<<<<<< HEAD
         if (userRepository.findByPhone(phone).isPresent()) {
             throw new RuntimeException("Số điện thoại đã tồn tại");
         }
+=======
+        return user.orElse(null);
+    }
+
+    // REGISTER
+    public boolean register(User user) {
+        if (user.getEmail() != null && repo.existsByEmail((String) user.getEmail())) return false;
+        if (user.getPhone() != null && repo.existsByPhone((String) user.getPhone())) return false;
+>>>>>>> origin/AD
 
         User user = new User();
         user.setFullName(fullName);
